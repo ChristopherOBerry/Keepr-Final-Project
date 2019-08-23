@@ -78,9 +78,10 @@ namespace Keepr.Controllers
             {
                 var id = HttpContext.User.FindFirstValue("Id"); // THIS IS HOW YOU GET THE ID of the currently logged in user
                 var user = _repo.GetUserById(id);
-                if (user == null) { 
+                if (user == null)
+                {
                     await HttpContext.SignOutAsync();
-                    throw new Exception("User not logged In"); 
+                    throw new Exception("User not logged In");
                 }
                 return Ok(user);
             }
