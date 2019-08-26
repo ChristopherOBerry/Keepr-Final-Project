@@ -58,6 +58,8 @@ namespace Keepr
             //TODO REGISTER SERVICES
             services.AddTransient<IDbConnection>(x => CreateDBContext());
             services.AddTransient<UserRepository>();
+            services.AddTransient<VaultsRepository>();
+            services.AddTransient<KeepsRepository>();
 
 
         }
