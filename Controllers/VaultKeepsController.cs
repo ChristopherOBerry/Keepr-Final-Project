@@ -19,5 +19,27 @@ namespace keepr.Repositories
         {
             _vkr = vkr;
         }
+        [HttpGet("{vaultId}")]
+        public ActionResult<VaultKeep> GetActionResult(string vaultKeepId)
+        {
+            return _vkr.GetById(vaultKeepId);
+        }
+        [HttpPost]
+        public ActionResult<VaultKeep> Create([FromBody]VaultKeep newVaultKeep)
+        {
+            var UserId = HttpContext.User.FindFirstValue("Id");
+            newVaultKeep.UserId = UserId;
+            return _vkr.CreateVaultKeep(newVaultKeep);
+        }
+        [HttpDelete]
+        public ActionResult Delete(string vaultKeepId)
+        {
+            bool success = _vkr.DeleteVaultKeep(vaultKeepId);
+            if (success)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }

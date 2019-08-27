@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using keepr.Models;
 using keepr.Repositories;
 using System.Security.Claims;
@@ -34,14 +32,16 @@ namespace Keepr.Controllers
         [HttpGet("{userId}")]
         public IEnumerable<Keep> Get(string userId)
         {
+            var UserId = HttpContext.User.FindFirstValue("Id");
+            userId = UserId;
             return _kr.GetKeepsByUserId(userId);
         }
-        //TODO needs to give UserId
+
         [HttpPost]
         public ActionResult<Keep> Create([FromBody]Keep newKeep)
         {
-
             var UserId = HttpContext.User.FindFirstValue("Id");
+            newKeep.UserId = UserId;
             return _kr.CreateKeep(newKeep);
         }
         [HttpDelete("{keepId}")]

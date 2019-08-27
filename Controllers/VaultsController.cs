@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using keepr.Models;
 using keepr.Repositories;
+using System.Security.Claims;
+
 
 namespace Keepr.Controllers
 {
@@ -34,6 +36,8 @@ namespace Keepr.Controllers
         [HttpPost]
         public ActionResult<Vault> Create([FromBody]Vault newVault)
         {
+            var UserId = HttpContext.User.FindFirstValue("Id");
+            newVault.UserId = UserId;
             return _vr.CreateVault(newVault);
         }
 

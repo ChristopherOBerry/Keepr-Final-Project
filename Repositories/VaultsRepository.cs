@@ -26,7 +26,7 @@ namespace keepr.Repositories
         }
         public Vault CreateVault(Vault vault)
         {
-            _db.Execute("INSERT INTO vaults (id, name, description) VALUES (@Id, @Name, @Description)", vault);
+            _db.Execute("INSERT INTO vaults (id, name, description, userId) VALUES (@Id, @Name, @Description, @UserId)", vault);
             return vault;
         }
         public bool DeleteVault(string vaultId)
