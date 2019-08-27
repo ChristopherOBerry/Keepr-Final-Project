@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System;
 using System.Data;
 using keepr.Models;
 using Dapper;
+
 
 
 namespace keepr.Repositories
@@ -15,7 +17,7 @@ namespace keepr.Repositories
         }
         public IEnumerable<Keep> GetAll()
         {
-            return _db.Query<Keep>("SELECT * ALL FROM keeps");
+            return _db.Query<Keep>("SELECT * FROM keeps");
         }
         public Keep GetById(string Id)
         {
@@ -30,7 +32,8 @@ namespace keepr.Repositories
 
         public Keep CreateKeep(Keep keep)
         {
-            _db.Execute("INSERT INTO keeps (id, name, description, img, isPrivate) VALUES (@Id, @Name,@Description, @Img, @IsPrivate)", keep);
+
+            _db.Execute("INSERT INTO keeps (id, name, description, img, isPrivate, userId) VALUES (@Id, @Name,@Description, @Img, @IsPrivate, @UserId)", keep);
             return keep;
         }
         public bool DeleteKeep(string keepId)
