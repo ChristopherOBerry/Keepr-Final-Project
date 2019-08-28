@@ -16,7 +16,10 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    vaults: [],
+    activeVault: {},
+    keeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -24,6 +27,18 @@ export default new Vuex.Store({
     },
     resetState(state) {
       //clear the entire state object of user data
+      state.user = {}
+    },
+    setVaults(state, vaults) {
+      state.vaults = vaults
+    },
+    setActiveVault(state, vault) {
+      state.activeVault = vault
+    },
+    setKeeps(state, keeps) {
+      state.keeps = keeps
+    },
+    resetState(state, user) {
       state.user = {}
     }
   },
@@ -55,6 +70,56 @@ export default new Vuex.Store({
       } catch (e) {
         console.warn(e.message)
       }
-    }
+    },
+    //#region --VAULTS--
+    getVaults({ commit, dispatch }) {
+      api.get('vaults')
+        .then(res => {
+          commit('setVaults', res.data)
+        })
+    },
+    getActiveVault({ commit, dispatch }, payload) {
+      api.get('vaults/' + payload)
+        .then(res => {
+          commit("setActiveVault", res.data)
+        })
+    },
+    addVault({ commit, dispatch }, vaultData) {
+      api.post('vaults', vaultData)
+        .then(serverVault => {
+          dispatch('getVaults')
+        })
+    },
+    deleteVault({ commit, dispatch }, delId) {
+      api.delete('vaults/' + delId)
+        .then(res => {
+          dispatch('getVaults')
+        })
+    },
+    //#endregion
+    getKeeps({ commit, dispatch }) {
+      api.get('keeps')
+        .then(res => {
+          commit('setKeeps', res.data)
+        })
+    },
+    addKeep({ commit, dispatch }, keepData) {
+      api.post('keeps', keepData)
+        .then(serverKeep => {
+          dispatch('getKeeps')
+        })
+    },
+    deleteKeep({ commit, dispatch }, delId) {
+      api.delete('keeps/' + delId)
+        .then(res => {
+          dispatch('getKeeps')
+        })
+    },
+    getVaultKeeps({ commit, dispatch }, payload) {
+      api.get('vaultkeeps/' + payload)
+        .then(res => { commit("setVaultKeeps, res.data") })
+    },
+
+
   }
 })

@@ -19,8 +19,16 @@
 </template>
 
 <script>
+import keeps from "../components/Keeps.vue";
+
 export default {
   name: "login",
+  mounted() {},
+  computed: {
+    keeps() {
+      return this.$store.state.keeps;
+    }
+  },
   data() {
     return {
       loginForm: true,
@@ -47,6 +55,9 @@ export default {
     loginUser() {
       this.$store.dispatch("login", this.creds);
     }
+  },
+  components: {
+    keeps
   }
 };
 </script>

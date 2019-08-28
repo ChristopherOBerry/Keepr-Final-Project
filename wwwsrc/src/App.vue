@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">Keepr</a>
+      <router-link class="navbar-brand" :to="{name: 'home'}">Keepr</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,18 +25,23 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Vaults</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
         </ul>
+        <h4 v-if="user.id" class="text-light">Logged in as: {{user.username}}({{user.email}})</h4>
       </div>
     </nav>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  }
+};
+</script>
 
 <style>
 #app {
