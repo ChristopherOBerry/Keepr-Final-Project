@@ -15,6 +15,7 @@
       <p v-if="loginForm">No account Click to Register</p>
       <p v-else>Already have an account Click to Login</p>
     </div>
+    <keeps></keeps>
   </div>
 </template>
 
