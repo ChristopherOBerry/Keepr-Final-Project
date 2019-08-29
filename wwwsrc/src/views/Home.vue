@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Welcome Home {{user.username}}</h1>
+    <h1 class="bg-secondary">Vault user: {{user.username}}</h1>
     <button class="btn btn-primary" v-if="user.id" @click="logout">logout</button>
     <router-link class="btn-primary btn" v-else :to="{name: 'login'}">Login</router-link>
     <form @submit.prevent="addVault">
@@ -22,7 +22,7 @@
       <button class="btn btn-primary m-2" type="submit">Create Vault</button>
     </form>
     <div>
-      <h1>My Vaults</h1>
+      <h1 class="bg-secondary">My Vaults</h1>
       <!-- #region --Vault Cards-- -->
       <div class="d-flex justify-items-center">
         <div class="row">

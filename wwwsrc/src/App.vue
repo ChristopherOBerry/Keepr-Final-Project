@@ -16,18 +16,10 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
-              Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Vaults</a>
-          </li>
-        </ul>
-        <h4 v-if="user.id" class="text-light">Logged in as: {{user.username}}({{user.email}})</h4>
+        <h4
+          v-if="user.id"
+          class="text-light text-end"
+        >Logged in as: {{user.username}}({{user.email}})</h4>
       </div>
     </nav>
     <router-view />

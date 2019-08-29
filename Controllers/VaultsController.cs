@@ -23,8 +23,9 @@ namespace Keepr.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Vault>> Get()
         {
-            var x = new User();
-            return Ok(_vr.GetAll());
+            var UserId = HttpContext.User.FindFirstValue("Id");
+
+            return Ok(_vr.GetAll(UserId));
         }
 
         [HttpGet("{id}")]

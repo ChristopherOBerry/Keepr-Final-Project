@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Keepr.Controllers
 {
-    [Authorize]
+    
     [Route("api/[Controller]")]
     [ApiController]
     public class KeepsController : ControllerBase

@@ -18,16 +18,21 @@
       />
       <button class="btn btn-primary m-2" type="submit">Create Keep</button>
     </form>
-    <h1>Public Keeps</h1>
+    <h1 class="bg-secondary">Public Keeps</h1>
     <!-- #region --Keep Cards-- -->
     <div class="d-flex">
       <div class="row">
         <div v-for="keep in keeps" :key="keep.Id" class="card bg-light m-4" style="width: 25vw;">
           <div class="card-body">
             <h4 class="card-title">{{keep.name.toUpperCase()}}</h4>
+            <img src alt />
             <p>{{keep.description}}</p>
 
-            <button class="btn btn-sm btn-danger m-2" @click="deleteKeep(keep.id)">Delete</button>
+            <button
+              v-if="keep.userId == user.id"
+              class="btn btn-sm btn-danger m-2"
+              @click="deleteKeep(keep.id)"
+            >Delete</button>
           </div>
         </div>
       </div>
@@ -55,6 +60,9 @@ export default {
   computed: {
     keeps() {
       return this.$store.state.keeps;
+    },
+    user() {
+      return this.$store.state.user;
     }
   },
   methods: {
