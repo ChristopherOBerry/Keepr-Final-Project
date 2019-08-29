@@ -8,7 +8,9 @@ namespace keepr.Models
         public string Img { get; set; }
         public bool isPrivate { get; set; }
         public string UserId { get; set; }
-
+        public int Views { get; set; }
+        public int Shares { get; set; }
+        public int Keeps { get; set; }
     }
 
 }

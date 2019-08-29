@@ -25,7 +25,7 @@
           <div v-if="keep.userId == user.id">
             <h4 class="card-title">{{keep.name.toUpperCase()}}</h4>
             <p>{{keep.description}}</p>
-
+            <p>Views: {{keep.views}}| Shares: {{keep.shares}}| Keeps: {{keep.keeps}}</p>
             <button
               v-if="keep.userId == user.id"
               class="btn btn-sm btn-danger m-2"
@@ -62,7 +62,7 @@
           <div class="card-body">
             <h4 class="card-title">{{keep.name.toUpperCase()}}</h4>
             <p>{{keep.description}}</p>
-
+            <p>Views: {{keep.views}}| Shares: {{keep.shares}}| Keeps: {{keep.keeps}}</p>
             <button
               v-if="keep.userId == user.id"
               class="btn btn-sm btn-danger m-2"
