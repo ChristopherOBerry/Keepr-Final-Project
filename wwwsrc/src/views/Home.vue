@@ -38,6 +38,7 @@
               </router-link>
 
               <p>{{vault.description}}</p>
+              <p>{{vault.id}}</p>
               <div>
                 <p>Eventually, Keeps will go here.</p>
                 <button class="btn btn-sm btn-danger m-2" @click="deleteVault(vault.id)">Delete</button>

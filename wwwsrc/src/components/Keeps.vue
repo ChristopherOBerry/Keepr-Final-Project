@@ -18,14 +18,12 @@
       />
       <button class="btn btn-primary m-2" type="submit">Create Keep</button>
     </form>
-    <h1 class="bg-secondary">Public Keeps</h1>
-    <!-- #region --Keep Cards-- -->
+    <h1 class="bg-secondary">My Keeps</h1>
     <div class="d-flex">
       <div class="row">
-        <div v-for="keep in keeps" :key="keep.Id" class="card bg-light m-4" style="width: 25vw;">
-          <div class="card-body">
+        <div class="card-body" v-for="keep in keeps" :key="keep.Id">
+          <div v-if="keep.userId == user.id">
             <h4 class="card-title">{{keep.name.toUpperCase()}}</h4>
-            <img src alt />
             <p>{{keep.description}}</p>
 
             <button
@@ -33,6 +31,62 @@
               class="btn btn-sm btn-danger m-2"
               @click="deleteKeep(keep.id)"
             >Delete</button>
+            <div class="dropdown">
+              <button
+                style="display: inline-block;"
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+              >Add to vault:</button>
+              <div class="dropdown-menu">
+                <p
+                  class="dropdown-item"
+                  :key="vault.Id"
+                  v-for="vault in vaults"
+                  @click="addKeepToVault(vault.id,keep.id,user.id)"
+                >
+                  Move To:
+                  {{vault.name}} {{vault.id}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 class="bg-secondary">Public Keeps</h1>
+    <!-- #region --Keep Cards-- -->
+    <div class="d-flex">
+      <div class="row">
+        <div v-for="keep in keeps" :key="keep.Id" class="card bg-light m-4" style="width: 25vw;">
+          <div class="card-body">
+            <h4 class="card-title">{{keep.name.toUpperCase()}}</h4>
+            <p>{{keep.description}}</p>
+
+            <button
+              v-if="keep.userId == user.id"
+              class="btn btn-sm btn-danger m-2"
+              @click="deleteKeep(keep.id)"
+            >Delete</button>
+            <div class="dropdown">
+              <button
+                style="display: inline-block;"
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+              >Add to vault:</button>
+              <div class="dropdown-menu">
+                <p
+                  class="dropdown-item"
+                  :key="vault.Id"
+                  v-for="vault in vaults"
+                  @click="addKeepToVault(vault.id,keep.id,user.id)"
+                >
+                  Move To:
+                  {{vault.name}} {{vault.id}}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -47,6 +101,7 @@ export default {
   name: "keeps",
   mounted() {
     this.$store.dispatch("getKeeps");
+    this.$store.dispatch("getVaults");
   },
   data() {
     return {
@@ -63,6 +118,9 @@ export default {
     },
     user() {
       return this.$store.state.user;
+    },
+    vaults() {
+      return this.$store.state.vaults;
     }
   },
   methods: {
@@ -72,6 +130,14 @@ export default {
     },
     deleteKeep(delId) {
       this.$store.dispatch("deleteKeep", delId);
+    },
+    addKeepToVault(vaultid, keepid, userid) {
+      let payload = {
+        keepId: keepid,
+        vaultId: vaultid,
+        userId: userid
+      };
+      this.$store.dispatch("addKeepToVault", payload);
     }
   },
   components: {}
