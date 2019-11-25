@@ -41,6 +41,7 @@
               <p>{{vault.id}}</p>
               <div>
                 <p>Eventually, Keeps will go here.</p>
+                <p>The keeps work now.</p>
                 <button class="btn btn-sm btn-danger m-2" @click="deleteVault(vault.id)">Delete</button>
               </div>
             </div>
